@@ -2,5 +2,7 @@ import React from 'react';
 
 // FormBuilder
 export default () => (
-  <div>--FormBuilder component --</div>
+  <div className="container">
+    --FormBuilder component --
+  </div>
 );
