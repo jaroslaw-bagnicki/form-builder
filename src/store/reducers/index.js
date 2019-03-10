@@ -12,7 +12,7 @@ const initState = {
             type: 'equals',
             value: true
           },
-          subnodeId: 4
+          nodeId: 4
         }
       ]
     },
