@@ -16,9 +16,8 @@ export const conditonTypesDict = {
 
 // propType
 export const formBuilderConditonType = shape({
-  conditionType: oneOf(['equals', 'greaterThan', 'lessThan']).isRequired,
-  conditionValue: oneOfType([bool, string, number]).isRequired,
-  subnodeId: number.isRequired
+  type: oneOf(['equals', 'greaterThan', 'lessThan']).isRequired,
+  value: oneOfType([bool, string, number]).isRequired
 });
 
 // propType
@@ -26,7 +25,10 @@ export const formBuilderNodeType = shape({
   id: number.isRequired,
   type: oneOf(['bool', 'string', 'number']).isRequired,
   question: string.isRequired,
-  subnodes: arrayOf(formBuilderConditonType.isRequired).isRequired
+  subnodes: arrayOf(shape({
+    condition: formBuilderConditonType.isRequired,
+    nodeId: number
+  })).isRequired
 });
 
 export const rootNodesListType = arrayOf(number);

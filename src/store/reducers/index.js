@@ -8,8 +8,10 @@ const initState = {
       type: 'bool',
       subnodes: [
         {
-          conditionType: 'equals',
-          conditionValue: true,
+          condition: {
+            type: 'equals',
+            value: true
+          },
           subnodeId: 4
         }
       ]
@@ -32,19 +34,25 @@ const initState = {
       type: 'string',
       subnodes: [
         {
-          conditionType: 'equals',
-          conditionValue: 'Ford',
-          subnodeId: 5
+          condition: {
+            type: 'equals',
+            value: 'Ford'
+          },
+          nodeId: 5
         },
         {
-          conditionType: 'equals',
-          conditionValue: 'Ford',
-          subnodeId: 6
+          condition: {
+            type: 'equals',
+            value: 'Ford'
+          },
+          nodeId: 6
         },
         {
-          conditionType: 'equals',
-          conditionValue: 'Toyota',
-          subnodeId: 7
+          condition: {
+            type: 'equals',
+            value: 'Toyota'
+          },
+          nodeId: 7
         }
       ]
     },
@@ -60,9 +68,11 @@ const initState = {
       type: 'number',
       subnodes: [
         {
-          conditionType: 'greaterThan',
-          conditionValue: 4,
-          subnodeId: 8
+          condition: {
+            type: 'greaterThan',
+            value: 4
+          },
+          nodeId: 8
         }
       ]
     },
