@@ -1,8 +1,6 @@
 import React from 'react';
-import {
-  Navbar,
-  FormBuilder
-} from '../';
+import { Navbar } from '../';
+import { FormBuilder } from '../../container';
 
 export const App = () => (
   <>
