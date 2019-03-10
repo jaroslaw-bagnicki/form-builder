@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { arrayOf } from 'prop-types';
+import { arrayOf, func } from 'prop-types';
 import { formBuilderNodeType, inputTypesList, conditionTypesLists } from '../../types';
+import { FormBuilderNode as ConnectedFormBuilderNode } from '../../container';
 import M from 'materialize-css';
 import styles from './styles.module.css';
 
@@ -8,7 +9,10 @@ export class FormBuilderNode extends Component {
 
   static propTypes = {
     nodes: arrayOf(formBuilderNodeType).isRequired,
-    node: formBuilderNodeType.isRequired
+    node: formBuilderNodeType.isRequired,
+    addSubnode: func.isRequired,
+    updateNode: func.isRequired, 
+    deleteNode: func.isRequired
   }
 
   state = {
@@ -26,6 +30,16 @@ export class FormBuilderNode extends Component {
       [e.target.name]: newVal
     });
   };
+
+  handleAddSubinput = () => {
+    console.log('handleAddSubinput()');
+    this.props.addSubnode(this.props.node.id);
+  }
+
+  handleDelete = () => {
+    console.log('handleDelete()');
+    this.props.addSubnode(this.props.node.id);
+  }
 
   componentDidMount() {
     M.AutoInit();
@@ -64,7 +78,7 @@ export class FormBuilderNode extends Component {
         { subnodes.map(id => {
           const node = this.props.nodes.find(node => node.id === id);
           return (
-            <FormBuilderNode key={node.id} node={node} nodes={this.props.nodes} />
+            <ConnectedFormBuilderNode key={node.id} node={node} nodes={this.props.nodes} />
           );
         })}
       </>
@@ -75,7 +89,7 @@ export class FormBuilderNode extends Component {
     const { node: {id, condition, subnodes} } = this.props;
     return (
       <div className={styles.container}> 
-        <div className="card large">
+        <div className="card fix-width">
           <div className="card-content">
             { condition && this.renderCondition() }
             <div className="input-field">
@@ -90,7 +104,9 @@ export class FormBuilderNode extends Component {
                 )) }
               </select>
             </div>
-  
+          </div>
+          <div className="card-action">
+            <button className="btn-small waves-effect grey" onClick={this.handleAddSubinput}>Add Sub-input</button> <button className="btn-small waves-effect red lighten-1" onClick={this.handleDelete}>Delete</button>
           </div>
         </div>
         { (subnodes.length > 0) && 

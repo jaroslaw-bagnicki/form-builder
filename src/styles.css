@@ -2,7 +2,7 @@
   margin: 0;
 }
 
-.card.large {
+.card.fix-width {
   height: auto;
   width: 35rem;
 }
@@ -11,10 +11,15 @@
   padding: 1rem;
 }
 
+.card .card-action {
+  padding: 1rem;
+  text-align: right;
+}
+
 .card .row {
   margin-bottom: 0;
 }
 
 .card .input-field {
-  margin: 0;
+  margin: .5rem 0 0;
 }
