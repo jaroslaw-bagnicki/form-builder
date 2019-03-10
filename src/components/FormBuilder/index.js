@@ -5,7 +5,10 @@ import { FormBuilderNode } from '../';
 
 export const FormBuilder = ({ rootNodesList, nodes }) => (
   <div className="container">
-    {rootNodesList.map(nodeId => (<FormBuilderNode key={nodeId} id={nodeId} nodes={nodes} />))}
+    {rootNodesList.map(nodeId => {
+      const node = nodes.find(node => node.id === nodeId);
+      return (<FormBuilderNode key={node.id} node={node} nodes={nodes} />);
+    })}
   </div>
 );
 

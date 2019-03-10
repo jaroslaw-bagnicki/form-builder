@@ -23,13 +23,13 @@ const initState = {
     {
       id: 3,
       question: 'What\'s your company name?',
-      type: 'text',
+      type: 'string',
       subnodes: []
     },
     {
       id: 4,
       question: 'What is your cars\'s model?',
-      type: 'text',
+      type: 'string',
       subnodes: [
         {
           conditionType: 'equals',
@@ -51,7 +51,7 @@ const initState = {
     {
       id: 5,
       question: 'What color is your Ford?',
-      type: 'text',
+      type: 'string',
       subnodes: []
     },
     {
