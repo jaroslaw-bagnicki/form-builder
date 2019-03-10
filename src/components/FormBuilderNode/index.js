@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { arrayOf } from 'prop-types';
+import M from 'materialize-css';
 import { formBuilderNodeType, formBuilderConditonType, inputTypesDict } from '../../types';
 
 export class FormBuilderNode extends Component {
@@ -17,9 +18,13 @@ export class FormBuilderNode extends Component {
 
   handleChange = (e) => {
     this.setState({
-      [e.target.id]: e.target.value
+      [e.target.name]: e.target.value
     });
   };
+
+  componentDidMount() {
+    M.AutoInit();
+  }
 
   renderCondition() {
     // TODO
@@ -33,12 +38,14 @@ export class FormBuilderNode extends Component {
           { condition && this.renderCondition() }
           <div className="input-field">
             <label htmlFor={`${id}-question`}>Question</label>
-            <input id={`${id}-question`} type="text" value={this.state.question} onChange={this.handleChange} />
+            <input id={`${id}-question`} name="question" type="text" value={this.state.question} onChange={this.handleChange} />
           </div>
           <div className="input-field">
-            <label>Type</label>
-            <select id={`${id}-type`}>
-              { Object.entries(inputTypesDict).map(type => (<option key={type[0]} value ={type[0]}>{type[1]}</option>)) }
+            <label htmlFor={`${id}-type`} className="active">Type</label>
+            <select id={`${id}-type`} name="type" value={this.state.type} onChange={this.handleChange}>
+              { Object.entries(inputTypesDict).map(type => (
+                <option key={type[0]} value={type[0]} >{type[1]}</option>
+              )) }
             </select>
           </div>
         </div>
