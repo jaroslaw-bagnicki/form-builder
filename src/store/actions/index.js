@@ -1,3 +1,5 @@
+import * as service from '../../dataService';
+
 export const addNode = () => (dispatch) => {
   console.log('action addNode()');
 };
@@ -15,5 +17,8 @@ export const deleteNode = (id) => (dispatch) => {
 };
 
 export const loadNodes = () => (dispatch) => {
-  console.log('action deleteNode()');
+  console.log('action loadNodes()');
+  dispatch({type: 'DATA_LOAD_START'});
+  service.loadData()
+    .then(data => dispatch({type: 'DATA_LOAD_SUCCESS', payload: {...data}}));
 };

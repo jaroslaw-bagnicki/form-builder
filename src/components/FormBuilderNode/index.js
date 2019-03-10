@@ -84,7 +84,7 @@ export class FormBuilderNode extends Component {
           <div className="card-content">
             { conditionType && this.renderCondition() }
             <div className="input-field">
-              <label htmlFor={`${id}-question`}>Question</label>
+              <label htmlFor={`${id}-question`} className="active">Question</label>
               <input id={`${id}-question`} name="questionText" type="text" value={questionText} onChange={this.handleChange} />
             </div>
             <div className="input-field">
