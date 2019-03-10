@@ -10,3 +10,11 @@
 .card .card-content {
   padding: 1rem;
 }
+
+.card .row {
+  margin-bottom: 0;
+}
+
+.card .input-field {
+  margin: 0;
+}
