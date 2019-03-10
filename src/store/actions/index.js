@@ -6,8 +6,8 @@ export const addSubnode = (id) => (dispatch) => {
   console.log('action addNode()', id);
 };
 
-export const updateNode = (data) => (dispatch) => {
-  console.log('action updateNode()');
+export const updateNode = (diff) => (dispatch) => {
+  console.log('action updateNode()', diff);
 };
 
 export const deleteNode = (id) => (dispatch) => {

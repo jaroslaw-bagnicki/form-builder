@@ -4,75 +4,60 @@ const initState = {
   nodes: [
     {
       id: 1,
-      question: 'Do You own a car?',
-      type: 'bool',
+      questionText: 'Do You own a car?',
+      inputType: 'BOOL',
       subnodes: [4]
     },
     {
       id: 2,
-      question: 'What year was your building built?',
-      type: 'number',
+      questionText: 'What year was your building built?',
+      inputType: 'NUMBER',
       subnodes: []
     },
     {
       id: 3,
-      question: 'What\'s your company name?',
-      type: 'string',
+      questionText: 'What\'s your company name?',
+      inputType: 'TEXT',
       subnodes: []
     },
     {
       id: 4,
-      condition: {
-        type: 'equals',
-        value: true,
-        valueType: 'bool'
-      },
-      question: 'What is your cars\'s model?',
-      type: 'string',
+      conditionType: 'EQUALS',
+      conditionValue: true,
+      questionText: 'What is your cars\'s model?',
+      inputType: 'TEXT',
       subnodes: [5, 6, 7]
     },
     {
       id: 5,
-      condition: {
-        type: 'equals',
-        value: 'Ford',
-        valueType: 'string'
-      },
-      question: 'What color is your Ford?',
-      type: 'string',
+      conditionType: 'EQUALS',
+      conditionValue: 'Ford',
+      questionText: 'What color is your Ford?',
+      inputType: 'TEXT',
       subnodes: []
     },
     {
       id: 6,
-      condition: {
-        type: 'equals',
-        value: 'Ford',
-        valueType: 'string'
-      },
-      question: 'How many wheels on your Ford?',
-      type: 'number',
+      conditionType: 'EQUALS',
+      conditionValue: 'Ford',
+      questionText: 'How many wheels on your Ford?',
+      inputType: 'NUMBER',
       subnodes: [8]
     },
     {
       id: 7,
-      condition: {
-        type: 'equals',
-        value: 'Toyota',
-        valueType: 'string'
-      },
-      question: 'Has your Toyota been recalled?',
-      type: 'bool',
+      conditionType: 'EQUALS',
+      conditionValue: 'Toyota',
+      questionText: 'Has your Toyota been recalled?',
+      inputType: 'BOOL',
       subnodes: []
     },
     {
       id: 8,
-      condition: {
-        type: 'greaterThan',
-        value: 4,
-        valueType: 'number'
-      },
-      question: 'Is your Ford road legal?',
-      type: 'bool',
+      conditionType: 'GREATER_THAN',
+      conditionValue: 4,
+      questionText: 'Is your Ford road legal?',
+      inputType: 'BOOL',
       subnodes: []
     }
   ],

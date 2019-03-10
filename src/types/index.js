@@ -2,39 +2,33 @@ import { shape, bool, number, string, oneOfType, oneOf, arrayOf } from 'prop-typ
 
 // Dictionary
 export const inputTypesList = [
-  { key: 'bool', label: 'Yes/No' },
-  { key: 'string', label: 'Text' },
-  { key: 'number', label: 'Number' }
+  { key: 'BOOL', label: 'Yes/No' },
+  { key: 'NUMBER', label: 'Number' },
+  { key: 'TEXT', label: 'Text' }
 ];
 
 // Dictionary
 const allConditonTypes = [
-  { key: 'equals', label: 'Equals' },
-  { key: 'greaterThan', label: 'Graten than' },
-  { key: 'lessThan', label: 'Less than' }
+  { key: 'EQUALS', label: 'Equals' },
+  { key: 'GREATER_THAN', label: 'Graten than' },
+  { key: 'LESS_THAN', label: 'Less than' }
 ];
 
 export const conditionTypesLists = {
-  bool: allConditonTypes.filter(type => type.key === 'equals' ),
-  number: allConditonTypes.filter(type => type.key === 'equals' || 'greaterThan' || 'lessThan'),
-  string: allConditonTypes.filter(type => type.key === 'equals')
+  boolean: allConditonTypes.filter(type => type.key === 'EQUALS' ),
+  number: allConditonTypes.filter(type => type.key === 'EQUALS' || 'GREATER_THAN' || 'LESS_THAN'),
+  string: allConditonTypes.filter(type => type.key === 'EQUALS')
 };
 
 // propType
 export const nodeIdType = number;
 
 // propType
-export const formBuilderConditonType = shape({
-  type: oneOf(allConditonTypes.map(type => type.key)).isRequired,
-  value: oneOfType([bool, string, number]).isRequired,
-  valueType: string
-});
-
-// propType
 export const formBuilderNodeType = shape({
-  id: number.isRequired,
-  condition: formBuilderConditonType,
-  type: oneOf(inputTypesList.map(type => type.key)).isRequired,
-  question: string.isRequired,
+  id: nodeIdType.isRequired,
+  conditionType: oneOf(allConditonTypes.map(type => type.key)),
+  conditionValue: oneOfType([bool, string, number]),
+  questionText: string.isRequired,
+  inputType: oneOf(inputTypesList.map(type => type.key)).isRequired,
   subnodes: arrayOf(nodeIdType)
 });

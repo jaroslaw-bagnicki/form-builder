@@ -15,20 +15,12 @@ export class FormBuilderNode extends Component {
     deleteNode: func.isRequired
   }
 
-  state = {
-    conditionType: this.props.node.condition && this.props.node.condition.type,
-    conditionValue: this.props.node.condition && this.props.node.condition.value,
-    question: this.props.node.question,
-    type: this.props.node.type
-  }
-
   handleChange = (e) => {
     let newVal = e.target.value;
+    if (newVal === 'true') newVal = true;
+    if (newVal === 'false') newVal = false;
     if (e.target.type === 'number') newVal = Number.parseFloat(newVal);
-    if (e.target.type === 'select-one') newVal = (newVal == 'true');
-    this.setState({
-      [e.target.name]: newVal
-    });
+    this.props.updateNode({[e.target.name]: newVal});
   };
 
   handleAddSubinput = () => {
@@ -46,10 +38,9 @@ export class FormBuilderNode extends Component {
   }
 
   renderCondition() {
-    const {id, condition: { valueType }} = this.props.node;
-    const value = this.state.conditionValue;
+    const { id, conditionType: type, conditionValue: value } = this.props.node;
     const input = {
-      bool: <select id={`${id}-conditionValue`} name="conditionValue" value={value} onChange={this.handleChange}>
+      boolean: <select id={`${id}-conditionValue`} name="conditionValue" value={value} onChange={this.handleChange}>
         <option value='true'>Yes</option>
         <option value='false'>No</option>
       </select>,
@@ -61,13 +52,13 @@ export class FormBuilderNode extends Component {
       <div className="row">
         <div className="input-field col s6">
           <label htmlFor={`${id}-condition`} className="active">Condition</label>
-          <select id={`${id}-condition`} name="condition" type="text" value={this.state.conditionType} onChange={this.handleChange}>
-            { conditionTypesLists[valueType].map(({key, label}) => (
+          <select id={`${id}-condition`} name="conditionType" type="text" value={type} onChange={this.handleChange}>
+            { conditionTypesLists[typeof value].map(({key, label}) => (
               <option key={key} value={key} >{label}</option>
             ))}
           </select>
         </div>
-        <div className="input-field col s6">{ input[valueType] }</div>
+        <div className="input-field col s6">{ input[typeof value] }</div>
       </div>
     );
   }
@@ -86,19 +77,19 @@ export class FormBuilderNode extends Component {
   }
   
   render() {
-    const { node: {id, condition, subnodes} } = this.props;
+    const { id, conditionType, questionText, inputType, subnodes } = this.props.node;
     return (
       <div className={styles.container}> 
         <div className="card fix-width">
           <div className="card-content">
-            { condition && this.renderCondition() }
+            { conditionType && this.renderCondition() }
             <div className="input-field">
               <label htmlFor={`${id}-question`}>Question</label>
-              <input id={`${id}-question`} name="question" type="text" value={this.state.question} onChange={this.handleChange} />
+              <input id={`${id}-question`} name="questionText" type="text" value={questionText} onChange={this.handleChange} />
             </div>
             <div className="input-field">
               <label htmlFor={`${id}-type`} className="active">Type</label>
-              <select id={`${id}-type`} name="type" value={this.state.type} onChange={this.handleChange}>
+              <select id={`${id}-type`} name="inputType" value={inputType} onChange={this.handleChange}>
                 { inputTypesList.map(({key, label}) => (
                   <option key={key} value={key} >{label}</option>
                 )) }
