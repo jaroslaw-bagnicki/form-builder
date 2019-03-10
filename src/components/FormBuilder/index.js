@@ -1,7 +1,6 @@
 import React from 'react';
 
-// FormBuilder
-export default () => (
+export const FormBuilder = () => (
   <div className="container">
     --FormBuilder component --
   </div>

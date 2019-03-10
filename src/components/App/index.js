@@ -4,8 +4,7 @@ import {
   FormBuilder
 } from '../';
 
-// App
-export default () => (
+export const App = () => (
   <>
     <Navbar />
     <FormBuilder />
