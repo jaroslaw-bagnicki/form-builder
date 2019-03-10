@@ -1,6 +1,6 @@
 import React from 'react';
-import { arrayOf, number } from 'prop-types';
-import { formBuilderNodeType } from '../../types';
+import { arrayOf } from 'prop-types';
+import { formBuilderNodeType, nodeIdType } from '../../types';
 import { FormBuilderNode } from '../';
 
 export const FormBuilder = ({ rootNodesList, nodes }) => (
@@ -19,6 +19,6 @@ export const FormBuilder = ({ rootNodesList, nodes }) => (
 );
 
 FormBuilder.propTypes = {
-  rootNodesList: arrayOf(number.isRequired),
+  rootNodesList: arrayOf(nodeIdType),
   nodes: arrayOf(formBuilderNodeType)
 };

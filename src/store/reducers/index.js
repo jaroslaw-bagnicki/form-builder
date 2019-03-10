@@ -6,15 +6,7 @@ const initState = {
       id: 1,
       question: 'Do You own a car?',
       type: 'bool',
-      subnodes: [
-        {
-          condition: {
-            type: 'equals',
-            value: true
-          },
-          nodeId: 4
-        }
-      ]
+      subnodes: [4]
     },
     {
       id: 2,
@@ -30,60 +22,55 @@ const initState = {
     },
     {
       id: 4,
+      condition: {
+        type: 'equals',
+        value: true,
+        valueType: 'bool'
+      },
       question: 'What is your cars\'s model?',
       type: 'string',
-      subnodes: [
-        {
-          condition: {
-            type: 'equals',
-            value: 'Ford'
-          },
-          nodeId: 5
-        },
-        {
-          condition: {
-            type: 'equals',
-            value: 'Ford'
-          },
-          nodeId: 6
-        },
-        {
-          condition: {
-            type: 'equals',
-            value: 'Toyota'
-          },
-          nodeId: 7
-        }
-      ]
+      subnodes: [5, 6, 7]
     },
     {
       id: 5,
+      condition: {
+        type: 'equals',
+        value: 'Ford',
+        valueType: 'string'
+      },
       question: 'What color is your Ford?',
       type: 'string',
       subnodes: []
     },
     {
       id: 6,
+      condition: {
+        type: 'equals',
+        value: 'Ford',
+        valueType: 'string'
+      },
       question: 'How many wheels on your Ford?',
       type: 'number',
-      subnodes: [
-        {
-          condition: {
-            type: 'greaterThan',
-            value: 4
-          },
-          nodeId: 8
-        }
-      ]
+      subnodes: [8]
     },
     {
       id: 7,
+      condition: {
+        type: 'equals',
+        value: 'Toyota',
+        valueType: 'string'
+      },
       question: 'Has your Toyota been recalled?',
       type: 'bool',
       subnodes: []
     },
     {
       id: 8,
+      condition: {
+        type: 'greaterThan',
+        value: 4,
+        valueType: 'number'
+      },
       question: 'Is your Ford road legal?',
       type: 'bool',
       subnodes: []
