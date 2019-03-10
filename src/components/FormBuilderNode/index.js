@@ -48,7 +48,7 @@ export class FormBuilderNode extends Component {
     const { node: {id, subnodes}, condition } = this.props;
     return (
       <div className={styles.container}> 
-        <div className={['card', styles.card].join(' ')}>
+        <div className="card large">
           <div className="card-content">
             { condition && this.renderCondition() }
             <div className="input-field">

@@ -1,0 +1,12 @@
+.card {
+  margin: 0;
+}
+
+.card.large {
+  height: auto;
+  width: 35rem;
+}
+
+.card .card-content {
+  padding: 1rem;
+}

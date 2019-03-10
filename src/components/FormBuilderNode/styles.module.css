@@ -4,12 +4,7 @@
   padding: .5rem;
   border-radius: 5px;
   border: 2px solid transparent;
-  transition: .15s;
-}
-
-.container .card {
-  margin: 0;
-  width: 35rem;
+  transition: .2s;
 }
 
 .container:hover {
