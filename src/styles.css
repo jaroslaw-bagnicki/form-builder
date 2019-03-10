@@ -23,3 +23,9 @@
 .card .input-field {
   margin: .5rem 0 0;
 }
+
+.loader {
+  margin: 3rem;
+  display: flex;
+  justify-content: center;
+}

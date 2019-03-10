@@ -4,7 +4,7 @@ import { formBuilderNodeType, nodeIdType } from '../../types';
 import { FormBuilderNode } from '../../container';
 
 export const FormBuilder = ({ isLoading, rootNodes, nodes, addNode }) => {
-  return isLoading ? <div className="container">Loading ...</div> :
+  return isLoading ? <i className="fas fa-spinner fa-spin fa-4x grey-text loader"></i> :
     <div className="container">
       <div className="row">
         <div className="col s12">
