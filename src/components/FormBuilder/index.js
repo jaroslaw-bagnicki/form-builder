@@ -5,10 +5,16 @@ import { FormBuilderNode } from '../';
 
 export const FormBuilder = ({ rootNodesList, nodes }) => (
   <div className="container">
-    {rootNodesList.map(nodeId => {
-      const node = nodes.find(node => node.id === nodeId);
-      return (<FormBuilderNode key={node.id} node={node} nodes={nodes} />);
-    })}
+    <div className="row">
+      <div className="col s12">
+        {rootNodesList.map(nodeId => {
+          const node = nodes.find(node => node.id === nodeId);
+          return (
+            <FormBuilderNode key={node.id} node={node} nodes={nodes} />
+          );
+        })}
+      </div>
+    </div>
   </div>
 );
 
