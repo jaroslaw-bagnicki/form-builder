@@ -1,8 +1,85 @@
 const initState = {
   isLoading: false,
   error: null,
-  inputs: [],
-  rootInputs: []
+  nodes: [
+    {
+      id: 1,
+      question: 'Do You own a car?',
+      type: 'bool',
+      subnodes: [
+        {
+          conditionType: 'equals',
+          conditionValue: true,
+          subnodeId: 4
+        }
+      ]
+    },
+    {
+      id: 2,
+      question: 'What year was your building built?',
+      type: 'number',
+      subnodes: []
+    },
+    {
+      id: 3,
+      question: 'What\'s your company name?',
+      type: 'text',
+      subnodes: []
+    },
+    {
+      id: 4,
+      question: 'What is your cars\'s model?',
+      type: 'text',
+      subnodes: [
+        {
+          conditionType: 'equals',
+          conditionValue: 'Ford',
+          subnodeId: 5
+        },
+        {
+          conditionType: 'equals',
+          conditionValue: 'Ford',
+          subnodeId: 6
+        },
+        {
+          conditionType: 'equals',
+          conditionValue: 'Toyota',
+          subnodeId: 7
+        }
+      ]
+    },
+    {
+      id: 5,
+      question: 'What color is your Ford?',
+      type: 'text',
+      subnodes: []
+    },
+    {
+      id: 6,
+      question: 'How many wheels on your Ford?',
+      type: 'number',
+      subnodes: [
+        {
+          conditionType: 'greaterThan',
+          conditionValue: 4,
+          subnodeId: 8
+        }
+      ]
+    },
+    {
+      id: 7,
+      question: 'Has your Toyota been recalled?',
+      type: 'bool',
+      subnodes: []
+    },
+    {
+      id: 8,
+      question: 'Is your Ford road legal?',
+      type: 'bool',
+      subnodes: []
+    }
+  ],
+  rootNodesList: [1, 2, 3]
 };
 
 export default (state = initState, action) => {
