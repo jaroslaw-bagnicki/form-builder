@@ -25,12 +25,12 @@ export class FormBuilderNode extends Component {
 
   handleAddSubinput = () => {
     console.log('handleAddSubinput()');
-    this.props.addSubNode(this.props.node.id);
+    this.props.addSubNode(this.props.node.templateId, this.props.node.id);
   }
 
   handleDelete = () => {
     console.log('handleDelete()');
-    this.props.addSubNode(this.props.node.id);
+    this.props.deleteNode(this.props.node.id);
   }
 
   componentDidMount() {

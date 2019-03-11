@@ -2,15 +2,20 @@ import * as service from '../../dataService';
 
 export const addRootNode = (templateId) => (dispatch) => {
   service.addRootNode(templateId)
-    .then(id => {
-      dispatch({type: 'ADD_NODE_SUCCESS', payload: { id }});
+    .then(() => {
+      dispatch({type: 'ADD_NODE_SUCCESS'});
       dispatch(reloadNodes(templateId));
     })
     .catch(err => dispatch({type: 'ADD_NODE_ERROR', payload: { err }}));
 };
 
-export const addSubNode = (id) => (dispatch) => {
-  console.log('action addSubNode()', id);
+export const addSubNode = (templateId, nodeId) => (dispatch) => {
+  service.addSubNode(nodeId)
+    .then(() => {
+      dispatch({type: 'ADD_NODE_SUCCESS'});
+      dispatch(reloadNodes(templateId));
+    })
+    .catch(err => dispatch({type: 'ADD_NODE_ERROR', payload: { err }}));
 };
 
 export const updateNode = (diff) => (dispatch) => {
