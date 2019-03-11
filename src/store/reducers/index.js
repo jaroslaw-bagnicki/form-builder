@@ -1,8 +1,7 @@
 const initState = {
   isLoading: false,
   error: null,
-  template: null,
-  nodes: []
+  template: {}
 };
 
 export default (state = initState, action) => {
@@ -14,11 +13,9 @@ export default (state = initState, action) => {
       };
 
     case 'DATA_LOAD_SUCCESS': {
-      const { nodes, template } = action.payload;
       return {
         ...state,
-        template,
-        nodes,
+        template: action.payload,
         isLoading: false,
         error: null
       };
@@ -28,7 +25,7 @@ export default (state = initState, action) => {
       return {
         ...state,
         isLoading: false,
-        error: 'Loading data faild.'
+        error: 'Data load failed.'
       };
       
     case 'ADD_NODE_SUCCESS': 

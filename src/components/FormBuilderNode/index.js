@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { arrayOf, func } from 'prop-types';
+import { objectOf, func } from 'prop-types';
 import { nodeType, inputTypesList, conditionTypesLists } from '../../types';
 import { FormBuilderNode as ConnectedFormBuilderNode } from '../../container';
 import M from 'materialize-css';
@@ -8,8 +8,8 @@ import styles from './styles.module.css';
 export class FormBuilderNode extends Component {
 
   static propTypes = {
-    nodes: arrayOf(nodeType).isRequired,
     node: nodeType.isRequired,
+    nodes: objectOf(nodeType).isRequired,
     addSubNode: func.isRequired,
     updateNode: func.isRequired, 
     deleteNode: func.isRequired
@@ -25,7 +25,7 @@ export class FormBuilderNode extends Component {
 
   handleAddSubinput = () => {
     console.log('handleAddSubinput()');
-    this.props.addSubNode(this.props.node.templateId, this.props.node.id);
+    this.props.addSubNode(this.props.node.id);
   }
 
   handleDelete = () => {
@@ -63,15 +63,11 @@ export class FormBuilderNode extends Component {
     );
   }
 
-  renderSubnodes(subnodes) {
+  renderSubnodes() {
+    const {node, nodes } = this.props;
     return (
       <>
-        { subnodes.map(id => {
-          const node = this.props.nodes.find(node => node.id === id);
-          return (
-            <ConnectedFormBuilderNode key={node.id} node={node} />
-          );
-        })}
+        { node.subnodes.map(id => <ConnectedFormBuilderNode key={id} node={nodes[id]} nodes={nodes} />)}
       </>
     );
   }
@@ -102,7 +98,7 @@ export class FormBuilderNode extends Component {
         </div>
         { (subnodes.length > 0) && 
           <div className={styles.subnodesContainer}> 
-            {this.renderSubnodes(subnodes)}
+            {this.renderSubnodes()}
           </div> }
       </div>
 
