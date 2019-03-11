@@ -1,11 +1,11 @@
 import db from './db';
 
-export function loadData(formId) {
+export function loadData(id) {
 
-  return db.transaction('r', db.nodes, db.forms, async () => {
-    const form = await db.forms.get(formId);
-    const nodes = await db.nodes.where({formId: 1}).toArray();
-    return { nodes, form };
+  return db.transaction('r', db.templates, db.nodes, async () => {
+    const template = await db.templates.get(id);
+    const nodes = await db.nodes.where({templateId: id}).toArray();
+    return { template, nodes };
   })
     .then(data => data)
     .catch(err => {

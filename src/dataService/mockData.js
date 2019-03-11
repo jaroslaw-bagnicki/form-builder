@@ -1,28 +1,28 @@
 export const sampleNodes = [
   {
     id: 1,
-    formId: 1,
+    templateId: 1,
     questionText: 'Do You own a car?',
     inputType: 'BOOL',
     subnodes: [4]
   },
   {
     id: 2,
-    formId: 1,
+    templateId: 1,
     questionText: 'What year was your building built?',
     inputType: 'NUMBER',
     subnodes: []
   },
   {
     id: 3,
-    formId: 1,
+    templateId: 1,
     questionText: 'What\'s your company name?',
     inputType: 'TEXT',
     subnodes: []
   },
   {
     id: 4,
-    formId: 1,
+    templateId: 1,
     conditionType: 'EQUALS',
     conditionValue: true,
     questionText: 'What is your cars\'s model?',
@@ -31,7 +31,7 @@ export const sampleNodes = [
   },
   {
     id: 5,
-    formId: 1,
+    templateId: 1,
     conditionType: 'EQUALS',
     conditionValue: 'Ford',
     questionText: 'What color is your Ford?',
@@ -40,7 +40,7 @@ export const sampleNodes = [
   },
   {
     id: 6,
-    formId: 1,
+    templateId: 1,
     conditionType: 'EQUALS',
     conditionValue: 'Ford',
     questionText: 'How many wheels on your Ford?',
@@ -49,7 +49,7 @@ export const sampleNodes = [
   },
   {
     id: 7,
-    formId: 1,
+    templateId: 1,
     conditionType: 'EQUALS',
     conditionValue: 'Toyota',
     questionText: 'Has your Toyota been recalled?',
@@ -58,7 +58,7 @@ export const sampleNodes = [
   },
   {
     id: 8,
-    formId: 1,
+    templateId: 1,
     conditionType: 'GREATER_THAN',
     conditionValue: 4,
     questionText: 'Is your Ford road legal?',
@@ -67,8 +67,8 @@ export const sampleNodes = [
   }
 ];
 
-export const sampleForm = {
+export const sampleTemplate = {
   id: 1,
-  title: 'Sample Form',
+  title: 'Sample Template',
   rootNodes: [1, 2, 3]
 };

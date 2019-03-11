@@ -5,7 +5,7 @@ import { addNode } from '../store/actions';
 const mapStateToProps = (state) => ({
   isLoading: state.isLoading,
   nodes: state.nodes,
-  rootNodes: state.rootNodes
+  template: state.template
 });
 
 const mapDispatchToProps = {

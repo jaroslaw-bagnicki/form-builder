@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { arrayOf, func } from 'prop-types';
-import { formBuilderNodeType, inputTypesList, conditionTypesLists } from '../../types';
+import { nodeType, inputTypesList, conditionTypesLists } from '../../types';
 import { FormBuilderNode as ConnectedFormBuilderNode } from '../../container';
 import M from 'materialize-css';
 import styles from './styles.module.css';
@@ -8,8 +8,8 @@ import styles from './styles.module.css';
 export class FormBuilderNode extends Component {
 
   static propTypes = {
-    nodes: arrayOf(formBuilderNodeType).isRequired,
-    node: formBuilderNodeType.isRequired,
+    nodes: arrayOf(nodeType).isRequired,
+    node: nodeType.isRequired,
     addSubnode: func.isRequired,
     updateNode: func.isRequired, 
     deleteNode: func.isRequired
@@ -69,7 +69,7 @@ export class FormBuilderNode extends Component {
         { subnodes.map(id => {
           const node = this.props.nodes.find(node => node.id === id);
           return (
-            <ConnectedFormBuilderNode key={node.id} node={node} nodes={this.props.nodes} />
+            <ConnectedFormBuilderNode key={node.id} node={node} />
           );
         })}
       </>

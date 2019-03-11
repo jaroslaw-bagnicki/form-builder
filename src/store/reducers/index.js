@@ -1,8 +1,8 @@
 const initState = {
   isLoading: false,
   error: null,
-  nodes: [],
-  rootNodes: []
+  template: null,
+  nodes: []
 };
 
 export default (state = initState, action) => {
@@ -14,10 +14,10 @@ export default (state = initState, action) => {
       };
 
     case 'DATA_LOAD_SUCCESS': {
-      const { nodes, form } = action.payload;
+      const { nodes, template } = action.payload;
       return {
         ...state,
-        ...form,
+        template,
         nodes,
         isLoading: false,
         error: null

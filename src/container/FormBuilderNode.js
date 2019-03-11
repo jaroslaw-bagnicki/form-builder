@@ -3,7 +3,8 @@ import { FormBuilderNode } from '../components/FormBuilderNode';
 import { addSubnode, updateNode, deleteNode } from '../store/actions';
 
 const mapStateToProps = (state) => ({
-  nodes: state.nodes
+  nodes: state.nodes,
+  templateId: state.template.id
 });
 
 const mapDispatchToProps = {
