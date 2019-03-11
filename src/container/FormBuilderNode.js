@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { FormBuilderNode } from '../components/FormBuilderNode';
-import { addSubnode, updateNode, deleteNode } from '../store/actions';
+import { addSubNode, updateNode, deleteNode } from '../store/actions';
 
 const mapStateToProps = (state) => ({
   nodes: state.nodes,
@@ -8,7 +8,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = {
-  addSubnode, 
+  addSubNode, 
   updateNode, 
   deleteNode
 };

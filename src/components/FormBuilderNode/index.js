@@ -10,7 +10,7 @@ export class FormBuilderNode extends Component {
   static propTypes = {
     nodes: arrayOf(nodeType).isRequired,
     node: nodeType.isRequired,
-    addSubnode: func.isRequired,
+    addSubNode: func.isRequired,
     updateNode: func.isRequired, 
     deleteNode: func.isRequired
   }
@@ -25,12 +25,12 @@ export class FormBuilderNode extends Component {
 
   handleAddSubinput = () => {
     console.log('handleAddSubinput()');
-    this.props.addSubnode(this.props.node.id);
+    this.props.addSubNode(this.props.node.id);
   }
 
   handleDelete = () => {
     console.log('handleDelete()');
-    this.props.addSubnode(this.props.node.id);
+    this.props.addSubNode(this.props.node.id);
   }
 
   componentDidMount() {

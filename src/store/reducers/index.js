@@ -30,6 +30,16 @@ export default (state = initState, action) => {
         isLoading: false,
         error: 'Loading data faild.'
       };
+      
+    case 'ADD_NODE_SUCCESS': 
+      return state;
+    
+    case 'ADD_NODE_ERROR':
+      console.log(action.payload.err);
+      return {
+        ...state,
+        error: 'Adding node faild.'
+      };
 
     default:
       return state;

@@ -3,7 +3,7 @@ import { bool, func, arrayOf } from 'prop-types';
 import { templateType, nodeType } from '../../types';
 import { FormBuilderNode } from '../../container';
 
-export const FormBuilder = ({ isLoading, template, nodes, addNode }) => {
+export const FormBuilder = ({ isLoading, template, nodes, addRootNode }) => {
   return isLoading ? <i className="fas fa-spinner fa-spin fa-4x grey-text loader"></i> :
     <div className="container">
       <div className="row">
@@ -16,7 +16,7 @@ export const FormBuilder = ({ isLoading, template, nodes, addNode }) => {
           })}
           <div className="col s12">
             <button className="btn-small waves-effect grey" 
-              onClick={addNode}
+              onClick={() => addRootNode(template.id)}
             >Add Input</button>
           </div>
         </div>
@@ -28,5 +28,5 @@ FormBuilder.propTypes = {
   isLoading: bool.isRequired,
   template: templateType,
   nodes: arrayOf(nodeType),
-  addNode: func
+  addRootNode: func
 };

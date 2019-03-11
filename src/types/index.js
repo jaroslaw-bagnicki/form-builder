@@ -34,6 +34,7 @@ export const templateType = shape({
 // propType
 export const nodeType = shape({
   id: dbIdType.isRequired,
+  templateId: dbIdType.isRequired,
   conditionType: oneOf(allConditonTypes.map(type => type.key)),
   conditionValue: oneOfType([bool, string, number]),
   questionText: string.isRequired,
