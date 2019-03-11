@@ -21,14 +21,23 @@ export const conditionTypesLists = {
 };
 
 // propType
-export const nodeIdType = number;
+export const dbIdType = number;
 
 // propType
-export const formBuilderNodeType = shape({
-  id: nodeIdType.isRequired,
+export const templateType = shape({
+  id: dbIdType.isRequired,
+  title: string.isRequired,
+  description: string,
+  rootNodes: arrayOf(dbIdType)
+});
+
+// propType
+export const nodeType = shape({
+  id: dbIdType.isRequired,
+  templateId: dbIdType.isRequired,
   conditionType: oneOf(allConditonTypes.map(type => type.key)),
   conditionValue: oneOfType([bool, string, number]),
   questionText: string.isRequired,
   inputType: oneOf(inputTypesList.map(type => type.key)).isRequired,
-  subnodes: arrayOf(nodeIdType)
+  subnodes: arrayOf(dbIdType)
 });

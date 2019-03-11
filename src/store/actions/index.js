@@ -1,9 +1,21 @@
-export const addNode = () => (dispatch) => {
-  console.log('action addNode()');
+import * as service from '../../dataService';
+
+export const addRootNode = (templateId) => (dispatch) => {
+  service.addRootNode(templateId)
+    .then(() => {
+      dispatch({type: 'ADD_NODE_SUCCESS'});
+      dispatch(reloadNodes(templateId));
+    })
+    .catch(err => dispatch({type: 'ADD_NODE_ERROR', payload: { err }}));
 };
 
-export const addSubnode = (id) => (dispatch) => {
-  console.log('action addNode()', id);
+export const addSubNode = (templateId, nodeId) => (dispatch) => {
+  service.addSubNode(nodeId)
+    .then(() => {
+      dispatch({type: 'ADD_NODE_SUCCESS'});
+      dispatch(reloadNodes(templateId));
+    })
+    .catch(err => dispatch({type: 'ADD_NODE_ERROR', payload: { err }}));
 };
 
 export const updateNode = (diff) => (dispatch) => {
@@ -14,6 +26,15 @@ export const deleteNode = (id) => (dispatch) => {
   console.log('action addSubnode()');
 };
 
-export const loadNodes = () => (dispatch) => {
-  console.log('action deleteNode()');
+export const loadNodes = (templateId) => (dispatch) => {
+  dispatch({type: 'DATA_LOAD_START'});
+  service.loadData(templateId)
+    .then(data => dispatch({type: 'DATA_LOAD_SUCCESS', payload: {...data}}))
+    .catch(err => dispatch({type: 'DATA_LOAD_ERROR', payload: { err }}));
+};
+
+export const reloadNodes = (templateId) => (dispatch) => {
+  service.loadData(templateId)
+    .then(data => dispatch({type: 'DATA_LOAD_SUCCESS', payload: {...data}}))
+    .catch(err => dispatch({type: 'DATA_LOAD_ERROR', payload: { err }}));
 };

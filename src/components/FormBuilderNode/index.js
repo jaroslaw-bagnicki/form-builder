@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { arrayOf, func } from 'prop-types';
-import { formBuilderNodeType, inputTypesList, conditionTypesLists } from '../../types';
+import { nodeType, inputTypesList, conditionTypesLists } from '../../types';
 import { FormBuilderNode as ConnectedFormBuilderNode } from '../../container';
 import M from 'materialize-css';
 import styles from './styles.module.css';
@@ -8,9 +8,9 @@ import styles from './styles.module.css';
 export class FormBuilderNode extends Component {
 
   static propTypes = {
-    nodes: arrayOf(formBuilderNodeType).isRequired,
-    node: formBuilderNodeType.isRequired,
-    addSubnode: func.isRequired,
+    nodes: arrayOf(nodeType).isRequired,
+    node: nodeType.isRequired,
+    addSubNode: func.isRequired,
     updateNode: func.isRequired, 
     deleteNode: func.isRequired
   }
@@ -25,12 +25,12 @@ export class FormBuilderNode extends Component {
 
   handleAddSubinput = () => {
     console.log('handleAddSubinput()');
-    this.props.addSubnode(this.props.node.id);
+    this.props.addSubNode(this.props.node.templateId, this.props.node.id);
   }
 
   handleDelete = () => {
     console.log('handleDelete()');
-    this.props.addSubnode(this.props.node.id);
+    this.props.deleteNode(this.props.node.id);
   }
 
   componentDidMount() {
@@ -69,7 +69,7 @@ export class FormBuilderNode extends Component {
         { subnodes.map(id => {
           const node = this.props.nodes.find(node => node.id === id);
           return (
-            <ConnectedFormBuilderNode key={node.id} node={node} nodes={this.props.nodes} />
+            <ConnectedFormBuilderNode key={node.id} node={node} />
           );
         })}
       </>
@@ -84,7 +84,7 @@ export class FormBuilderNode extends Component {
           <div className="card-content">
             { conditionType && this.renderCondition() }
             <div className="input-field">
-              <label htmlFor={`${id}-question`}>Question</label>
+              <label htmlFor={`${id}-question`} className="active">Question</label>
               <input id={`${id}-question`} name="questionText" type="text" value={questionText} onChange={this.handleChange} />
             </div>
             <div className="input-field">
