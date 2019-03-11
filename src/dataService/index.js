@@ -9,7 +9,6 @@ export function loadData(id) {
   })
     .then(data => data)
     .catch(err => {
-      console.log(err);
-      return err;
+      throw err;
     });
 }

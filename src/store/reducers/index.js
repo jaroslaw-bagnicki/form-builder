@@ -24,6 +24,7 @@ export default (state = initState, action) => {
       };
     }
     case 'DATA_LOAD_ERROR':
+      console.log(action.payload.err);
       return {
         ...state,
         isLoading: false,
