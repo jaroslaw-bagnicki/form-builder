@@ -5,17 +5,17 @@ const db = new Dexie('FormBuilder');
 
 db.version(1).stores({
   forms: '++id',
-  nodes: '++id'
+  nodes: '++id, formId'
 });
 
-db.open()
-  .catch(err => console.log('DB open error',err));
-
-db.nodes.clear();
-// db.forms.clear();
-db.nodes.bulkAdd(sampleNodes)
-  .catch(err => console.log(err));
-db.forms.add(sampleForm)
+// Sample data setup
+db.transaction('rw', db.nodes, db.forms, async () => {
+  await db.forms.delete(1);
+  await db.forms.add(sampleForm);
+  await db.nodes.where({formId: 1}).delete();
+  await db.nodes.bulkAdd(sampleNodes);
+})
+  .then(() => console.log('DB: Sample data reseted.'))
   .catch(err => console.log(err));
 
 export default db;

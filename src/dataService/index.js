@@ -1,12 +1,15 @@
 import db from './db';
 
-export function loadData() {
+export function loadData(formId) {
 
   return db.transaction('r', db.nodes, db.forms, async () => {
-    const nodes = await db.nodes.toArray();
-    const form = await db.forms.get(1);
+    const form = await db.forms.get(formId);
+    const nodes = await db.nodes.where({formId: 1}).toArray();
     return { nodes, form };
   })
     .then(data => data)
-    .catch(err => console.log(err));
+    .catch(err => {
+      console.log(err);
+      return err;
+    });
 }

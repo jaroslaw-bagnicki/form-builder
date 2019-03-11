@@ -3,7 +3,9 @@ import { FormBuilder } from '../components/FormBuilder';
 import { addNode } from '../store/actions';
 
 const mapStateToProps = (state) => ({
-  ...state
+  isLoading: state.isLoading,
+  nodes: state.nodes,
+  rootNodes: state.rootNodes
 });
 
 const mapDispatchToProps = {

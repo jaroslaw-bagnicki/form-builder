@@ -14,11 +14,11 @@ export default (state = initState, action) => {
       };
 
     case 'DATA_LOAD_SUCCESS': {
-      const { nodes, form: { rootNodes } } = action.payload;
+      const { nodes, form } = action.payload;
       return {
         ...state,
+        ...form,
         nodes,
-        rootNodes,
         isLoading: false,
         error: null
       };

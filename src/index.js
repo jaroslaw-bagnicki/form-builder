@@ -7,6 +7,6 @@ import { loadNodes } from './store/actions';
 import 'materialize-css/dist/css/materialize.min.css';
 import './styles.css';
 
-store.dispatch(loadNodes());
+store.dispatch(loadNodes(1));
 
 ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));

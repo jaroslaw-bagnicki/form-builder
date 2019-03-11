@@ -19,6 +19,6 @@ export const deleteNode = (id) => (dispatch) => {
 export const loadNodes = () => (dispatch) => {
   console.log('action loadNodes()');
   dispatch({type: 'DATA_LOAD_START'});
-  service.loadData()
+  service.loadData(1)
     .then(data => dispatch({type: 'DATA_LOAD_SUCCESS', payload: {...data}}));
 };
