@@ -20,16 +20,17 @@ export class FormBuilderNode extends Component {
     if (newVal === 'true') newVal = true;
     if (newVal === 'false') newVal = false;
     if (e.target.type === 'number') newVal = Number.parseFloat(newVal);
-    this.props.updateNode({[e.target.name]: newVal});
+    this.props.updateNode({
+      id: this.props.node.id,
+      [e.target.name]: newVal
+    });
   };
 
   handleAddSubinput = () => {
-    console.log('handleAddSubinput()');
     this.props.addSubNode(this.props.node.id);
   }
 
   handleDelete = () => {
-    console.log('handleDelete()');
     this.props.deleteNode(this.props.node.id);
   }
 

@@ -43,9 +43,11 @@ export const nodeType = shape({
 
 // propType
 export const templateType = shape({
-  slug: string,
-  title: string,
+  isLoading: bool.isRequired,
+  slug: string.isRequired,
+  title: string.isRequired,
   description: string,
   rootNodes: arrayOf(nodeIdType),
-  nodes: objectOf(nodeType)
+  nodes: objectOf(nodeType),
+  nextId: nodeIdType 
 });

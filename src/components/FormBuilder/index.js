@@ -1,9 +1,9 @@
 import React from 'react';
-import { bool, func } from 'prop-types';
+import { func } from 'prop-types';
 import { templateType } from '../../types';
 import { FormBuilderNode } from '../../container';
 
-export const FormBuilder = ({ isLoading, template: { title, rootNodes, nodes }, addRootNode }) => {
+export const FormBuilder = ({ template: { isLoading, title, rootNodes, nodes }, addRootNode }) => {
   return isLoading ? <i className="fas fa-spinner fa-spin fa-4x grey-text loader"></i> :
     <div className="container">
       <div className="row">
@@ -21,7 +21,6 @@ export const FormBuilder = ({ isLoading, template: { title, rootNodes, nodes }, 
 };
 
 FormBuilder.propTypes = {
-  isLoading: bool.isRequired,
   template: templateType,
   addRootNode: func
 };

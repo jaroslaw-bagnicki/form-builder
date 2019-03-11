@@ -1,7 +1,7 @@
 export const sampleTemplate = {
   slug: 'sample-template',
   title: 'Sample Template',
-  lastNodeId: 8,
+  nextId: 9,
   rootNodes: [1, 2, 3],
   nodes: [
     {

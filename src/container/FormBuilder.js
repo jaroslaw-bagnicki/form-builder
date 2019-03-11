@@ -1,14 +1,13 @@
 import { connect } from 'react-redux';
 import { FormBuilder } from '../components/FormBuilder';
-// import { addRootNode } from '../store/actions';
+import { addRootNode } from '../store/actions/nodeActions';
 
 const mapStateToProps = (state) => ({
-  isLoading: state.isLoading,
   template: state.template
 });
 
 const mapDispatchToProps = {
-  // addRootNode
+  addRootNode
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormBuilder);
