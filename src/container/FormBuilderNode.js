@@ -1,11 +1,11 @@
 import { connect } from 'react-redux';
 import { FormBuilderNode } from '../components/FormBuilderNode';
-import { addSubNode, updateNode, deleteNode } from '../store/actions/nodeActions';
+import { addSubNode, updateNode, deleteNodes } from '../store/actions/nodeActions';
 
 const mapDispatchToProps = {
   addSubNode, 
   updateNode, 
-  deleteNode
+  deleteNodes
 };
 
 export default connect(null, mapDispatchToProps)(FormBuilderNode);

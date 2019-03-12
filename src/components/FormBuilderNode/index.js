@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { objectOf, func } from 'prop-types';
-import { nodeType, inputTypesList, conditionTypesLists } from '../../types';
+import { nodeType } from '../../types';
+import { inputTypesList, conditionTypesLists, findNodesToRemove } from '../../helpers';
 import { FormBuilderNode as ConnectedFormBuilderNode } from '../../container';
 import M from 'materialize-css';
 import styles from './styles.module.css';
@@ -12,7 +13,7 @@ export class FormBuilderNode extends Component {
     nodes: objectOf(nodeType).isRequired,
     addSubNode: func.isRequired,
     updateNode: func.isRequired, 
-    deleteNode: func.isRequired
+    deleteNodes: func.isRequired
   }
 
   handleChange = (e) => {
@@ -20,18 +21,17 @@ export class FormBuilderNode extends Component {
     if (newVal === 'true') newVal = true;
     if (newVal === 'false') newVal = false;
     if (e.target.type === 'number') newVal = Number.parseFloat(newVal);
-    this.props.updateNode({
-      id: this.props.node.id,
-      [e.target.name]: newVal
-    });
+    this.props.updateNode(this.props.node.id, { [e.target.name]: newVal });
   };
 
-  handleAddSubinput = () => {
-    this.props.addSubNode(this.props.node.id);
+  handleAddSubNode = () => {
+    this.props.addSubNode(this.props.node.id, this.props.node.inputType);
   }
 
   handleDelete = () => {
-    this.props.deleteNode(this.props.node.id);
+    const ids = findNodesToRemove(this.props.node.id, this.props.nodes);
+    console.log('ids', ids);
+    this.props.deleteNodes(ids);
   }
 
   componentDidMount() {
@@ -86,7 +86,7 @@ export class FormBuilderNode extends Component {
             </div>
             <div className="input-field">
               <label htmlFor={`${id}-type`} className="active">Type</label>
-              <select id={`${id}-type`} name="inputType" value={inputType} onChange={this.handleChange}>
+              <select id={`${id}-type`} name="inputType" value={inputType} onChange={this.handleChange} disabled={(subnodes.length > 0)}>
                 { inputTypesList.map(({key, label}) => (
                   <option key={key} value={key} >{label}</option>
                 )) }
@@ -94,7 +94,7 @@ export class FormBuilderNode extends Component {
             </div>
           </div>
           <div className="card-action">
-            <button className="btn-small waves-effect grey" onClick={this.handleAddSubinput}>Add Sub-input</button> <button className="btn-small waves-effect red lighten-1" onClick={this.handleDelete}>Delete</button>
+            <button className="btn-small waves-effect grey" onClick={this.handleAddSubNode}>Add Sub-input</button> <button className="btn-small waves-effect red lighten-1" onClick={this.handleDelete}>Delete</button>
           </div>
         </div>
         { (subnodes.length > 0) && 
