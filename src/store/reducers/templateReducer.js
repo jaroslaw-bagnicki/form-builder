@@ -1,7 +1,10 @@
 import {
   DATA_LOAD_START,
   DATA_LOAD_SUCCESS,
-  DATA_LOAD_ERROR
+  DATA_LOAD_ERROR,
+  DATA_SAVE_START,
+  DATA_SAVE_SUCCESS,
+  DATA_SAVE_ERROR
 } from '../actions/dbActions';
 
 import {
@@ -16,6 +19,7 @@ import { emptyNode, defaultConditon } from '../../helpers';
 const initState = {
   isLoading: false,
   error: null,
+  isChanged: false,
   title: '',
   slug: '',
   rootNodes: [],
@@ -36,7 +40,8 @@ export default (state = initState, action) => {
         ...state,
         ...action.payload,
         isLoading: false,
-        error: null
+        error: null,
+        isChanged: false
       };
     }
     case DATA_LOAD_ERROR:
@@ -45,6 +50,24 @@ export default (state = initState, action) => {
         ...state,
         isLoading: false,
         error: 'Data load failed.'
+      };
+
+      case DATA_SAVE_START:
+      return state;
+
+    case DATA_SAVE_SUCCESS: {
+      return {
+        ...state,
+        ...action.payload,
+        error: null,
+        isChanged: false
+      };
+    }
+    case DATA_SAVE_ERROR:
+      console.log(action.payload.err);
+      return {
+        ...state,
+        error: 'Data save failed.'
       };
       
     case ADD_ROOT_NODE:
@@ -55,7 +78,8 @@ export default (state = initState, action) => {
           [state.nextId]: emptyNode(state.nextId) 
         },
         rootNodes: state.rootNodes.concat(state.nextId),
-        nextId: state.nextId + 1
+        nextId: state.nextId + 1,
+        isChanged: true
       };
   
     case ADD_SUB_NODE: {
@@ -70,7 +94,8 @@ export default (state = initState, action) => {
             subnodes: state.nodes[id].subnodes.concat(state.nextId)
           }
         },
-        nextId: state.nextId + 1
+        nextId: state.nextId + 1,
+        isChanged: true
       };
     }
 
@@ -84,7 +109,8 @@ export default (state = initState, action) => {
             ...state.nodes[id],
             ...diff
           }
-        }
+        },
+        isChanged: true
       };
     }
 
@@ -100,7 +126,8 @@ export default (state = initState, action) => {
       return {
         ...state,
         nodes,
-        rootNodes
+        rootNodes,
+        isChanged: true
       };
     }
 
