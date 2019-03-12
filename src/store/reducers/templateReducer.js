@@ -89,25 +89,19 @@ export default (state = initState, action) => {
     }
 
     case DELETE_NODES: {
-      console.log(DELETE_NODES, action.payload.ids);
       const { ids, parent } = action.payload;
-      console.log(ids, parent);
       const nodes = {...state.nodes};
+      let rootNodes = state.rootNodes;
       ids.forEach(key => delete nodes[key]);
-      if (parent !== 0) {
-        nodes[parent].subnodes = nodes[parent].subnodes.filter(id => id !== ids[0]);
-        return {
-          ...state,
-          nodes
-        };
+      if (parent === 0) { rootNodes = state.rootNodes.filter(id => id !== ids[0]);
       } else {
-        const rootNodes = state.rootNodes.filter(id => id !== ids[0]);
-        return {
-          ...state,
-          nodes,
-          rootNodes
-        };
+        nodes[parent].subnodes = nodes[parent].subnodes.filter(id => id !== ids[0]);
       }
+      return {
+        ...state,
+        nodes,
+        rootNodes
+      };
     }
 
     default:
