@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { arrayOf, func } from 'prop-types';
-import { nodeType, inputTypesList, conditionTypesLists } from '../../types';
+import { objectOf, func } from 'prop-types';
+import { nodeType, nodeIdType } from '../../types';
+import { inputTypesList, conditionTypesLists, findNodesToRemove } from '../../helpers';
 import { FormBuilderNode as ConnectedFormBuilderNode } from '../../container';
 import M from 'materialize-css';
 import styles from './styles.module.css';
@@ -8,11 +9,12 @@ import styles from './styles.module.css';
 export class FormBuilderNode extends Component {
 
   static propTypes = {
-    nodes: arrayOf(nodeType).isRequired,
+    parent: nodeIdType.isRequired,
     node: nodeType.isRequired,
+    nodes: objectOf(nodeType).isRequired,
     addSubNode: func.isRequired,
     updateNode: func.isRequired, 
-    deleteNode: func.isRequired
+    deleteNodes: func.isRequired
   }
 
   handleChange = (e) => {
@@ -20,17 +22,16 @@ export class FormBuilderNode extends Component {
     if (newVal === 'true') newVal = true;
     if (newVal === 'false') newVal = false;
     if (e.target.type === 'number') newVal = Number.parseFloat(newVal);
-    this.props.updateNode({[e.target.name]: newVal});
+    this.props.updateNode(this.props.node.id, { [e.target.name]: newVal });
   };
 
-  handleAddSubinput = () => {
-    console.log('handleAddSubinput()');
-    this.props.addSubNode(this.props.node.templateId, this.props.node.id);
+  handleAddSubNode = () => {
+    this.props.addSubNode(this.props.node.id, this.props.node.inputType);
   }
 
   handleDelete = () => {
-    console.log('handleDelete()');
-    this.props.deleteNode(this.props.node.id);
+    const ids = findNodesToRemove(this.props.node.id, this.props.nodes);
+    this.props.deleteNodes(ids, this.props.parent);
   }
 
   componentDidMount() {
@@ -63,15 +64,11 @@ export class FormBuilderNode extends Component {
     );
   }
 
-  renderSubnodes(subnodes) {
+  renderSubnodes() {
+    const {node, nodes } = this.props;
     return (
       <>
-        { subnodes.map(id => {
-          const node = this.props.nodes.find(node => node.id === id);
-          return (
-            <ConnectedFormBuilderNode key={node.id} node={node} />
-          );
-        })}
+        { node.subnodes.map(id => <ConnectedFormBuilderNode key={id} parent={node.id} node={nodes[id]} nodes={nodes} />)}
       </>
     );
   }
@@ -89,7 +86,7 @@ export class FormBuilderNode extends Component {
             </div>
             <div className="input-field">
               <label htmlFor={`${id}-type`} className="active">Type</label>
-              <select id={`${id}-type`} name="inputType" value={inputType} onChange={this.handleChange}>
+              <select id={`${id}-type`} name="inputType" value={inputType} onChange={this.handleChange} disabled={(subnodes.length > 0)}>
                 { inputTypesList.map(({key, label}) => (
                   <option key={key} value={key} >{label}</option>
                 )) }
@@ -97,12 +94,12 @@ export class FormBuilderNode extends Component {
             </div>
           </div>
           <div className="card-action">
-            <button className="btn-small waves-effect grey" onClick={this.handleAddSubinput}>Add Sub-input</button> <button className="btn-small waves-effect red lighten-1" onClick={this.handleDelete}>Delete</button>
+            <button className="btn-small waves-effect grey" onClick={this.handleAddSubNode}>Add Sub-input</button> <button className="btn-small waves-effect red lighten-1" onClick={this.handleDelete}>Delete</button>
           </div>
         </div>
         { (subnodes.length > 0) && 
           <div className={styles.subnodesContainer}> 
-            {this.renderSubnodes(subnodes)}
+            {this.renderSubnodes()}
           </div> }
       </div>
 

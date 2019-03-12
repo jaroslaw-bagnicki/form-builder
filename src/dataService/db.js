@@ -1,21 +1,20 @@
 import Dexie from 'dexie';
-import { sampleTemplate, sampleNodes } from './mockData';
+import { sampleTemplate } from './mockData';
 
 const db = new Dexie('FormBuilder');
 
 db.version(1).stores({
-  templates: '++id',
-  nodes: '++id, templateId'
+  templates: '++, slug',
+  settings: ''
 });
 
 // Sample data setup
-db.transaction('rw', db.nodes, db.templates, async () => {
-  await db.templates.delete(1);
+db.transaction('rw', db.templates, db.settings, async () => {
+  await db.templates.where({slug: 'sample-template'}).delete();
   await db.templates.add(sampleTemplate);
-  await db.nodes.where({templateId: 1}).delete();
-  await db.nodes.bulkAdd(sampleNodes);
+  await db.settings.put(sampleTemplate.slug, 'lastTemplate');
 })
-  .then(() => console.log('DB: Sample data reseted.'))
+  .then(() => console.log('DB: Sample data setup.'))
   .catch(err => console.log(err));
 
 export default db;

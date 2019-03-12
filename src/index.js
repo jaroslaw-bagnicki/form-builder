@@ -3,10 +3,10 @@ import ReactDOM from 'react-dom';
 import { App } from './components';
 import { Provider } from 'react-redux';
 import { store } from './store';
-import { loadNodes } from './store/actions';
+import { loadTemplate } from './store/actions/dbActions';
 import 'materialize-css/dist/css/materialize.min.css';
 import './styles.css';
 
-store.dispatch(loadNodes(1));
+store.dispatch(loadTemplate());
 
 ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));

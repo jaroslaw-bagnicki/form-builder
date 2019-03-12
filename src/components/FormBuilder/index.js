@@ -1,23 +1,32 @@
 import React from 'react';
-import { bool, func, arrayOf } from 'prop-types';
-import { templateType, nodeType } from '../../types';
+import { func } from 'prop-types';
+import { templateType } from '../../types';
 import { FormBuilderNode } from '../../container';
 
-export const FormBuilder = ({ isLoading, template, nodes, addRootNode }) => {
+export const FormBuilder = ({ template: { isLoading, isChanged, title, rootNodes, nodes }, addRootNode, loadTemplate, saveTemplate }) => {
   return isLoading ? <i className="fas fa-spinner fa-spin fa-4x grey-text loader"></i> :
     <div className="container">
       <div className="row">
         <div className="col s12">
-          {template && template.rootNodes.map(nodeId => {
-            const node = nodes.find(node => node.id === nodeId);
-            return (
-              <FormBuilderNode key={node.id} node={node} />
-            );
-          })}
+          <h4>
+            {title}
+            <span className="actions right">
+              <button 
+                  className="btn waves-effect blue lighten-2" 
+                  onClick={() => loadTemplate('sample-template')}>
+                Load sample template</button> <button 
+                className="btn waves-effect green lighten-1" 
+                onClick={saveTemplate}
+                disabled={!isChanged}> 
+              Save</button>
+            </span> 
+          </h4>
+          {rootNodes && rootNodes.map(id => <FormBuilderNode key={id} parent={0} node={nodes[id]} nodes={nodes} />)}
           <div className="col s12">
-            <button className="btn-small waves-effect grey" 
-              onClick={() => addRootNode(template.id)}
-            >Add Input</button>
+            <button 
+              className="btn-small waves-effect grey" 
+              onClick={addRootNode}>
+            Add Input</button>
           </div>
         </div>
       </div>
@@ -25,8 +34,8 @@ export const FormBuilder = ({ isLoading, template, nodes, addRootNode }) => {
 };
 
 FormBuilder.propTypes = {
-  isLoading: bool.isRequired,
   template: templateType,
-  nodes: arrayOf(nodeType),
-  addRootNode: func
+  addRootNode: func,
+  loadTemplate: func,
+  saveTemplate: func
 };

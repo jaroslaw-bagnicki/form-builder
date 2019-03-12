@@ -1,62 +1,36 @@
 import db from './db';
 
-// Used in addSubNode()
-const defaultConditon = {
-  BOOL: {
-    conditionType: 'EQUALS',
-    conditionValue: true
-  },
-  NUMBER: {
-    conditionType: 'EQUALS',
-    conditionValue: 0
-  },
-  TEXT: {
-    conditionType: 'EQUALS',
-    conditionValue: ''
-  }
-};
+export const emptyTemplate = {
+  slug: 'new-template',
+  title: 'New Template',
+  nextId: 1,
+  rootNodes: [],
+  nodes: []
+}
 
-export function loadData(id) {
-  return db.transaction('r', db.templates, db.nodes, async () => {
+export function loadTemplate(slug) {
+  return db.transaction('rw', db.templates, async () => {
+    // Read last template if slug hasn't been passed
+    slug = slug || 'new-template'
     // Read template data
-    const template = await db.templates.get(id);
-    // Read nodes for specific template
-    const nodes = await db.nodes.where({templateId: id}).toArray();
-    return { template, nodes };
+    const counter = await db.templates.where({slug: slug}).count();
+    if (counter === 0) await db.templates.add(emptyTemplate);
+    const data = await db.templates.where({slug: slug}).last();
+    // Transform array of nodes to object of nodes
+    data.nodes = data.nodes.reduce((nodes, node) => {
+      nodes[node.id] = node;
+      return nodes;
+    }, {});
+    return data;
   });
 }
 
-export function addRootNode(templateId) {
-  return db.transaction('rw', db.templates, db.nodes, async () => {
-    // Create new root node
-    const id = await db.nodes.add({
-      templateId,
-      questionText: '',
-      inputType: 'BOOL',
-      subnodes: []
-    });
-    // Read rootNodes list
-    const rootNodes = (await db.templates.get(templateId)).rootNodes;
-    // Update rootNodes list
-    await db.templates.update(templateId, {rootNodes: rootNodes.concat(id)});
-    return id;
+export function saveTemplate(data) {
+  return db.transaction('rw', db.templates, async () => {
+    // Transform object of nodes to array of nodes
+    data.nodes = Object.values(data.nodes);
+    // Save template data
+    await db.templates.add(data);
+    return loadTemplate(data.slug);
   });
 }
-
-export function addSubNode(nodeId) {
-  return db.transaction('rw', db.nodes, async () => {
-    // Read parent node
-    const { inputType, templateId, subnodes } = await db.nodes.get(nodeId);
-    // Create new node
-    const id = await db.nodes.add({
-      templateId,
-      ...defaultConditon[inputType],
-      questionText: '',
-      inputType: 'BOOL',
-      subnodes: []
-    });
-    // Update parent node subnodes list
-    await db.nodes.update(nodeId, {subnodes: subnodes.concat(id)});
-    return id;
-  });
-} 
