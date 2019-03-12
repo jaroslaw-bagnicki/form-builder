@@ -9,7 +9,7 @@ export const FormBuilder = ({ template: { isLoading, title, rootNodes, nodes }, 
       <div className="row">
         <div className="col s12">
           <h4>{title}</h4>
-          {rootNodes && rootNodes.map(id => <FormBuilderNode key={id} node={nodes[id]} nodes={nodes} />)}
+          {rootNodes && rootNodes.map(id => <FormBuilderNode key={id} parent={0} node={nodes[id]} nodes={nodes} />)}
           <div className="col s12">
             <button className="btn-small waves-effect grey" 
               onClick={addRootNode}

@@ -15,7 +15,7 @@ export const updateNode = ( id, diff ) => ({
   payload: { id, diff }
 });
 
-export const deleteNodes = (ids) => ({
+export const deleteNodes = (ids, parent) => ({
   type: DELETE_NODES,
-  payload: { ids }
+  payload: { ids, parent }
 });

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { objectOf, func } from 'prop-types';
-import { nodeType } from '../../types';
+import { nodeType, nodeIdType } from '../../types';
 import { inputTypesList, conditionTypesLists, findNodesToRemove } from '../../helpers';
 import { FormBuilderNode as ConnectedFormBuilderNode } from '../../container';
 import M from 'materialize-css';
@@ -9,6 +9,7 @@ import styles from './styles.module.css';
 export class FormBuilderNode extends Component {
 
   static propTypes = {
+    parent: nodeIdType.isRequired,
     node: nodeType.isRequired,
     nodes: objectOf(nodeType).isRequired,
     addSubNode: func.isRequired,
@@ -30,8 +31,7 @@ export class FormBuilderNode extends Component {
 
   handleDelete = () => {
     const ids = findNodesToRemove(this.props.node.id, this.props.nodes);
-    console.log('ids', ids);
-    this.props.deleteNodes(ids);
+    this.props.deleteNodes(ids, this.props.parent);
   }
 
   componentDidMount() {
@@ -68,7 +68,7 @@ export class FormBuilderNode extends Component {
     const {node, nodes } = this.props;
     return (
       <>
-        { node.subnodes.map(id => <ConnectedFormBuilderNode key={id} node={nodes[id]} nodes={nodes} />)}
+        { node.subnodes.map(id => <ConnectedFormBuilderNode key={id} parent={node.id} node={nodes[id]} nodes={nodes} />)}
       </>
     );
   }

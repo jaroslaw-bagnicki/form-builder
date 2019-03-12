@@ -90,13 +90,24 @@ export default (state = initState, action) => {
 
     case DELETE_NODES: {
       console.log(DELETE_NODES, action.payload.ids);
-      const copy = {...state.nodes};
-      action.payload.ids.forEach(key => delete copy[key]);
-      console.log(state.nodes, copy);
-      return {
-        ...state,
-        nodes: copy
-      };
+      const { ids, parent } = action.payload;
+      console.log(ids, parent);
+      const nodes = {...state.nodes};
+      ids.forEach(key => delete nodes[key]);
+      if (parent !== 0) {
+        nodes[parent].subnodes = nodes[parent].subnodes.filter(id => id !== ids[0]);
+        return {
+          ...state,
+          nodes
+        };
+      } else {
+        const rootNodes = state.rootNodes.filter(id => id !== ids[0]);
+        return {
+          ...state,
+          nodes,
+          rootNodes
+        };
+      }
     }
 
     default:
