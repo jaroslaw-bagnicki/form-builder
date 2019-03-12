@@ -1,0 +1,31 @@
+.card {
+  margin: 0;
+}
+
+.card.fix-width {
+  height: auto;
+  width: 35rem;
+}
+
+.card .card-content {
+  padding: 1rem;
+}
+
+.card .card-action {
+  padding: 1rem;
+  text-align: right;
+}
+
+.card .row {
+  margin-bottom: 0;
+}
+
+.card .input-field {
+  margin: .5rem 0 0;
+}
+
+.loader {
+  margin: 3rem;
+  display: flex;
+  justify-content: center;
+}
